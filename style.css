@@ -1,0 +1,9 @@
+.hide-article-link {
+    all: initial;
+    position: absolute;
+    cursor: pointer;
+    top: 13px;
+    right: 45px;
+    color: black;
+    text-decoration: underline;
+}

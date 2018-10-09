@@ -1,0 +1,16 @@
+{
+  "name": "linkedin_hide_article_button",
+  "version": "0.1.0",
+  "description": "Easily hide article from LinkedIn feed",
+  "main": "script.js",
+  "dependencies": {},
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^3.0.1",
+    "gulp-zip": "^4.2.0"
+  },
+  "repository": "somerepo.git",
+  "author": "",
+  "license": "ISC"
+}

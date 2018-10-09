@@ -1,0 +1,20 @@
+{
+  "name": "LinkedIn hide article button",
+  "version": "0.1.0",
+  "description": "Easily hide article from LinkedIn feed",
+  "manifest_version": 2,
+  "content_scripts": [{
+    "css": ["style.css"],
+    "js": ["script.js"],
+    "matches": ["https://www.linkedin.com/feed/", "https://www.linkedin.com/"]
+  }],
+  "short_name" : "hide article",
+  "icons": {
+    "16" : "icons/icon16x16.png",
+    "48" : "icons/icon48x48.png",
+    "128": "icons/icon128x128.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/icon48x48.png"
+  }
+}
