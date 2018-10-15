@@ -1,5 +1,6 @@
+console.debug("Starting script");
+
 function listenForEvents() {
-    console.debug("Starting script");
 
     var observeDOM = (function () {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
@@ -44,8 +45,10 @@ function listenForEvents() {
     }
 
     function addHideButton(element) {
-        var btn = document.createElement("BUTTON");
-        btn.classList.add("hide-article-link");
+        var btn = document.createElement("INPUT");
+        btn.setAttribute("type", "button");
+        btn.setAttribute("value", "hide");
+        btn.classList.add("hide-article-button");
         btn.classList.add("button-reset");
         btn.addEventListener("click", function () {
             console.debug("Button is clicked!");
@@ -58,20 +61,18 @@ function listenForEvents() {
                 btn.style.display = "none";
             }
         });
-        var t = document.createTextNode("hide");
-        btn.appendChild(t);
         element.appendChild(btn);
     }
 
     // there is only one coreRail element on the page
     var coreRail = document.getElementsByClassName("core-rail")[0];
 
+    // add hide button to elements that already exist in core-rail
     var elementsWithDataIdAttribute = getDivsWithDataIdAttribute("div", "data-id");
     console.debug("There are " + elementsWithDataIdAttribute.length + " elements with data-id attribute");
     elementsWithDataIdAttribute.forEach(function (element) {
         addHideButton(element);
     });
-
 
     // start listening for events
     observeDOM(coreRail, function () {
@@ -80,17 +81,18 @@ function listenForEvents() {
         console.debug("There are " + elementsWithDataIdAttribute.length + " elements with data-id attribute");
 
         elementsWithDataIdAttribute.forEach(function (element) {
-            // we need to check whether button already exists and add it, if it doesn't exist
+            // we add button only if it doesn't already exist
             var containsButton = false;
 
             var children = element.childNodes;
             for (var i = 0; i < children.length; i++) {
-                if (children[i].tagName !== undefined && children[i].tagName.toLowerCase() === "button") {
+                if (children[i].classList !== undefined &&
+                    children[i].classList.contains("hide-article-button")) {
                     containsButton = true;
                     break;
                 }
             }
-            
+
             if (!containsButton) {
                 addHideButton(element);
             }
@@ -98,30 +100,18 @@ function listenForEvents() {
     });
 }
 
-window.onload = function () {
-
-    var intervalId = undefined;
-    function checkStatus() {
-        var coreRail = document.getElementsByClassName("core-rail")[0];
-        if (coreRail.children.length <= 2) {
-            console.debug("Core rail still not ready, waiting...");
-        } else {
-            console.debug("Corerail is ready, it has " + coreRail.children.length + " elements");
-            clearInterval(intervalId);
-            listenForEvents();
-        }
-    }
-    intervalId = setInterval(checkStatus, 200);
-
+function addListenerForHomeButton() {
+    console.debug("Adding listener for home button");
     var homeButton = document.getElementById("feed-nav-item");
-    homeButton.addEventListener("click",function () {
+    homeButton.addEventListener("click", function () {
 
         var intervalId = undefined;
+
         function checkStatus() {
             var coreRail = document.getElementsByClassName("core-rail")[0];
-            // we should wait until coreRail has more than 2 children, which signals 
-            // that the feed articles have loaded 
-            if (coreRail.children.length <= 2) {
+            if (coreRail !== undefined &&
+                coreRail.children !== undefined &&
+                coreRail.children.length <= 2) {
                 console.debug("Core rail still not ready, waiting...");
             } else {
                 console.debug("Corerail is ready, it has " + coreRail.children.length + " elements");
@@ -129,7 +119,42 @@ window.onload = function () {
                 listenForEvents();
             }
         }
+
         intervalId = setInterval(checkStatus, 200);
     });
+}
 
-};
+/**
+ *  ##################
+ *  Script starts here
+ *  ##################
+ */
+var intervalId = undefined;
+
+function checkStatus() {
+
+    /*
+     Although the document.readyState should be 'complete' at this point,
+     or in other words, page should be ready, we check for readiness in case
+     a document takes a lot of time to load
+     (see https://developer.chrome.com/extensions/content_scripts#run_time)
+     */
+    if (document.readyState !== "complete") {
+        console.debug("Document not yet ready, waiting...");
+        return;
+    }
+    var coreRail = document.getElementsByClassName("core-rail")[0];
+
+    if (coreRail !== undefined &&
+        coreRail.children !== undefined
+        && coreRail.children.length <= 2) {
+        console.debug("Core rail still not ready, waiting...");
+    } else {
+        console.debug("Corerail is ready, it has " + coreRail.children.length + " elements");
+        clearInterval(intervalId);
+        addListenerForHomeButton();
+        listenForEvents();
+    }
+}
+
+intervalId = setInterval(checkStatus, 200);

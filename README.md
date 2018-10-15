@@ -11,7 +11,7 @@ not interested in from your feed.
 ## Installation
 ### Latest release
 * Firefox
-  * go to homepage of the extension on [Firefox Addons](https://addons.mozilla.org/en-US/firefox/) and click **Add to Firefox**
+  * go to homepage of the extension on [Firefox Addons](https://github.com/daniloradenovic/linkedin-hide-article-button) and click **Add to Firefox**
 * Chrome
   * go to homepage of the extension on 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/linkedin-hide-article-but/pkgjaephjiidkkbakdnpalcccbdihlnm) 

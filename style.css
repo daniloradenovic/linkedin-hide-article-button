@@ -1,9 +1,20 @@
-.hide-article-link {
-    all: initial;
+.hide-article-button {
     position: absolute;
-    cursor: pointer;
-    top: 13px;
+    top: 10px;
     right: 45px;
-    color: black;
-    text-decoration: underline;
+    padding: 3px 6px;
+    z-index: 100;
+    cursor: pointer;
+    color: white;
+    background-color: #0473b2;
+    border: none #0473b2;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.hide-article-button:hover {
+    background-color: #006097;
+    border-color: #006097;
 }
