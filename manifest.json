@@ -9,11 +9,10 @@
         "style.css"
       ],
       "js": [
-        "script.js"
+        "script.js", "jquery-3.3.1.min.js"
       ],
       "matches": [
-        "https://www.linkedin.com/feed*",
-        "https://www.linkedin.com/"
+        "https://www.linkedin.com/*"
       ],
       "run_at": "document_idle"
     }

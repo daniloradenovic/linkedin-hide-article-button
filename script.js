@@ -25,23 +25,11 @@ function listenForEvents() {
     })();
 
     function getDivsWithDataIdAttribute() {
-        var arrElements = document.getElementsByTagName("div");
-        var arrReturnElements = [];
-        var oAttributeValue = (typeof strAttributeValue !== "undefined") ?
-            new RegExp("(^|\\s)" + strAttributeValue + "(\\s|$)", "i") :
-            null;
-        var oCurrent;
-        var oAttribute;
-        for (var i = 0; i < arrElements.length; i++) {
-            oCurrent = arrElements[i];
-            oAttribute = oCurrent.getAttribute && oCurrent.getAttribute("data-id");
-            if (typeof oAttribute === "string" && oAttribute.length > 0) {
-                if (typeof strAttributeValue === "undefined" || (oAttributeValue && oAttributeValue.test(oAttribute))) {
-                    arrReturnElements.push(oCurrent);
-                }
-            }
-        }
-        return arrReturnElements;
+
+        var coreRail = document.getElementsByClassName("core-rail")[0];
+        var result = $(coreRail).find("div[data-id]").toArray();
+
+        return result === undefined ? Array() : result;
     }
 
     function addHideButton(element) {
@@ -51,7 +39,6 @@ function listenForEvents() {
         btn.classList.add("hide-article-button");
         btn.classList.add("button-reset");
         btn.addEventListener("click", function () {
-            console.debug("Button is clicked!");
             if (element !== undefined) {
                 // find the original button for hiding and click on it
                 var liOption = element.querySelector("li.option-hide-update");
@@ -75,6 +62,7 @@ function listenForEvents() {
     });
 
     // start listening for events
+    console.debug("Observing DOM...");
     observeDOM(coreRail, function () {
         console.debug("Adding elements...");
         var elementsWithDataIdAttribute = getDivsWithDataIdAttribute("div", "data-id");
@@ -114,7 +102,7 @@ function addListenerForHomeButton() {
                 coreRail.children.length <= 2) {
                 console.debug("Core rail still not ready, waiting...");
             } else {
-                console.debug("Corerail is ready, it has " + coreRail.children.length + " elements");
+                console.debug("Core rail is ready, it has " + coreRail.children.length + " elements");
                 clearInterval(intervalId);
                 listenForEvents();
             }
@@ -152,9 +140,29 @@ function checkStatus() {
     } else {
         console.debug("Corerail is ready, it has " + coreRail.children.length + " elements");
         clearInterval(intervalId);
+        intervalId = undefined;
         addListenerForHomeButton();
         listenForEvents();
     }
 }
 
-intervalId = setInterval(checkStatus, 200);
+var listener = function() {
+    var newUrl = window.location.href;
+    if (newUrl !== undefined && newUrl.startsWith("https://www.linkedin.com/feed")) {
+        console.debug("Starting to listen for events");
+        if (intervalId === undefined) {
+            console.debug("Interval id is undefined, checking status");
+            intervalId = setInterval(checkStatus, 200);
+        } else {
+            console.debug("Interval id is defined");
+        }
+    }
+};
+
+window.addEventListener('popstate', listener);
+if (intervalId === undefined) {
+    console.debug("Interval id is undefined, checking status");
+    intervalId = setInterval(checkStatus, 200);
+} else {
+    console.debug("Interval id is not undefined");
+}
