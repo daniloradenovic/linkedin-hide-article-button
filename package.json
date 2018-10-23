@@ -1,6 +1,6 @@
 {
   "name": "linkedin_hide_article_button",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Easily hide article from LinkedIn feed",
   "main": "script.js",
   "dependencies": {},
