@@ -6,19 +6,20 @@ function listenForEvents() {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
         return function (obj, callback) {
-            if (!obj || !obj.nodeType === 1) return; // validation
+            if (!obj || !obj.nodeType === 1) {
+                return;
+            } // validation
 
             if (MutationObserver) {
                 // define a new observer
                 var obs = new MutationObserver(function (mutations, observer) {
-                    if (mutations[0].addedNodes.length || mutations[0].removedNodes.length)
+                    if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
                         callback(mutations[0]);
+                    }
                 });
                 // have the observer observe foo for changes in children
                 obs.observe(obj, {childList: true, subtree: true});
-            }
-
-            else if (window.addEventListener) {
+            } else if (window.addEventListener) {
                 obj.addEventListener('DOMNodeInserted', callback, false);
             }
         }
@@ -41,11 +42,54 @@ function listenForEvents() {
         btn.addEventListener("click", function () {
             if (element !== undefined) {
                 // find the original button for hiding and click on it
-                var liOption = element.querySelector("li.option-hide-update");
-                var artdecoButtonItem = liOption.querySelector("artdeco-dropdown-item");
-                artdecoButtonItem.click();
-                // hide the custom button
-                btn.style.display = "none";
+                var artdecoDropdown = element.querySelector("artdeco-dropdown-trigger");
+                if (artdecoDropdown != null) {
+                    console.debug("artdeco is not null, clicking on it");
+                    artdecoDropdown.click();
+                } else {
+                    console.debug("ardeco is null...");
+                }
+
+                var retryAttempts = 0;
+                var waitForHideMenuItemToAppearAndClickOnIt = setInterval(function () {
+
+                    if (retryAttempts === 20) {
+                        console.debug("Timed out waiting for hide dropdown menu item to appear. "
+                                      + "Canceling hiding operation.")
+                        clearInterval(waitForHideMenuItemToAppearAndClickOnIt);
+                    }
+
+                    artdecoDropdown = element.querySelector("artdeco-dropdown");
+                    var liOption = artdecoDropdown.querySelector("li.option-hide-update");
+                    if (liOption != null) {
+                        var artdecoDropdownItem = liOption.querySelector("artdeco-dropdown-item");
+                        artdecoDropdownItem.click();
+                        // hide the custom button
+                        btn.style.display = "none";
+                    } else {
+
+                        var reportButton = artdecoDropdown.querySelector("li.option-report");
+                        if (reportButton != null) {
+                            console.debug("Report button is present and Hide button is not - "
+                                          + "this is most likely an ad and can't be hidden this way. "
+                                          + "Clicking on the report ad button");
+
+                            var artdecoDropdownItem = reportButton.querySelector(
+                                "artdeco-dropdown-item");
+                            artdecoDropdownItem.click();
+                            // hide the custom button
+                            btn.style.display = "none";
+                            clearInterval(waitForHideMenuItemToAppearAndClickOnIt);
+                            return;
+                        } else {
+                            console.debug("Menu item didn't yet appear, waiting further");
+                            retryAttempts++;
+                            return;
+                        }
+                    }
+                }, 200);
+
+                waitForHideMenuItemToAppearAndClickOnIt();
             }
         });
         element.appendChild(btn);
@@ -56,7 +100,8 @@ function listenForEvents() {
 
     // add hide button to elements that already exist in core-rail
     var elementsWithDataIdAttribute = getDivsWithDataIdAttribute("div", "data-id");
-    console.debug("There are " + elementsWithDataIdAttribute.length + " elements with data-id attribute");
+    console.debug(
+        "There are " + elementsWithDataIdAttribute.length + " elements with data-id attribute");
     elementsWithDataIdAttribute.forEach(function (element) {
         addHideButton(element);
     });
@@ -66,7 +111,8 @@ function listenForEvents() {
     observeDOM(coreRail, function () {
         console.debug("Adding elements...");
         var elementsWithDataIdAttribute = getDivsWithDataIdAttribute("div", "data-id");
-        console.debug("There are " + elementsWithDataIdAttribute.length + " elements with data-id attribute");
+        console.debug(
+            "There are " + elementsWithDataIdAttribute.length + " elements with data-id attribute");
 
         elementsWithDataIdAttribute.forEach(function (element) {
             // we add button only if it doesn't already exist
@@ -102,7 +148,8 @@ function addListenerForHomeButton() {
                 coreRail.children.length <= 2) {
                 console.debug("Core rail still not ready, waiting...");
             } else {
-                console.debug("Core rail is ready, it has " + coreRail.children.length + " elements");
+                console.debug(
+                    "Core rail is ready, it has " + coreRail.children.length + " elements");
                 clearInterval(intervalId);
                 listenForEvents();
             }
@@ -146,7 +193,7 @@ function checkStatus() {
     }
 }
 
-var listener = function() {
+var listener = function () {
     var newUrl = window.location.href;
     if (newUrl !== undefined && newUrl.startsWith("https://www.linkedin.com/feed")) {
         console.debug("Starting to listen for events");

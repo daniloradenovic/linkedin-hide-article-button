@@ -7,21 +7,21 @@ gulp.task('clean', function () {
     return del('dist/*');
 });
 
-gulp.task('copy-files', ['clean'], function () {
-    return gulp.src(['manifest.json', 'style.css', 'icons/**/*', 'jquery-3.3.1.min.js'], {base : '.'})
+gulp.task('copy-files', function () {
+    return gulp.src(['manifest.json', 'style.css', 'icons/**/*', 'jquery-3.3.1.min.js'])
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('compress', ['clean'], function () {
+gulp.task('compress', function () {
     return gulp.src('script.js')
         .pipe(uglify())
         .pipe(gulp.dest('dist'))
 });
 
-gulp.task('zip', ['copy-files', 'compress'], function () {
+gulp.task('zip', function () {
     return gulp.src('dist/**/*')
         .pipe(zip('dist.zip'))
         .pipe(gulp.dest('dist'))
 });
 
-gulp.task('default', ['zip']);
+gulp.task('default', gulp.series('clean', 'copy-files', 'compress', 'zip'));
