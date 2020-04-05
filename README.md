@@ -1,7 +1,7 @@
-# ![Linkedin hide article button logo](icons/icon48x48.png) LinkedIn hide article button
+# ![Linkedin hide post button logo](icons/icon48x48.png) LinkedIn hide post button
 
-Adds a button for easy hiding of articles on LinkedIn's homepage. 
-Saves an extra click and mouse move to hide an article you're 
+Adds a button for easy hiding of posts on LinkedIn's homepage.
+Saves an extra click and mouse move to hide an post you're
 not interested in from your feed.
 
 ## Supported browsers
@@ -11,10 +11,10 @@ not interested in from your feed.
 ## Installation
 ### Latest release
 * Firefox
-  * go to homepage of the extension on [Firefox Addons](https://github.com/daniloradenovic/linkedin-hide-article-button) and click **Add to Firefox**
+  * go to homepage of the extension on [Firefox Addons](https://addons.mozilla.org/en-US/firefox/addon/linkedin-hide-post-button/) and click **Add to Firefox**
 * Chrome
-  * go to homepage of the extension on 
-[Chrome Web Store](https://chrome.google.com/webstore/detail/linkedin-hide-article-but/pkgjaephjiidkkbakdnpalcccbdihlnm) 
+  * go to homepage of the extension on
+[Chrome Web Store](https://chrome.google.com/webstore/detail/linkedin-hide-article-but/pkgjaephjiidkkbakdnpalcccbdihlnm)
 and click **Add to Chrome**
 
 ### Development
@@ -32,7 +32,7 @@ Prior versions of these dependencies will likely work as well:
 * node v8.10.0
 * npm v3.5.2
 
-To install `node` and all the `npm` modules, 
+To install `node` and all the `npm` modules,
 run the following in terminal (required only the first time):
 
 #### Linux

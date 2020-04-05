@@ -8,7 +8,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('copy-files', function () {
-    return gulp.src(['manifest.json', 'style.css', 'icons/**/*', 'jquery-3.3.1.min.js'])
+    return gulp.src(['manifest.json', 'style.css', 'icons/**/*', 'jquery-3.3.1.min.js'], { base: "."})
         .pipe(gulp.dest('dist'));
 });
 

@@ -37,7 +37,7 @@ function listenForEvents() {
         var btn = document.createElement("INPUT");
         btn.setAttribute("type", "button");
         btn.setAttribute("value", "hide");
-        btn.classList.add("hide-article-button");
+        btn.classList.add("hide-post-button");
         btn.classList.add("button-reset");
         btn.addEventListener("click", function () {
             if (element !== undefined) {
@@ -121,7 +121,7 @@ function listenForEvents() {
             var children = element.childNodes;
             for (var i = 0; i < children.length; i++) {
                 if (children[i].classList !== undefined &&
-                    children[i].classList.contains("hide-article-button")) {
+                    children[i].classList.contains("hide-post-button")) {
                     containsButton = true;
                     break;
                 }

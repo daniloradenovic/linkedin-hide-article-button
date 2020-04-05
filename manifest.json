@@ -1,7 +1,7 @@
 {
-  "name": "LinkedIn hide article button",
-  "version": "0.3.0",
-  "description": "Easily hide article from LinkedIn feed",
+  "name": "LinkedIn hide post button",
+  "version": "0.4.0",
+  "description": "Easily hide post from LinkedIn feed",
   "manifest_version": 2,
   "content_scripts": [
     {
@@ -17,7 +17,7 @@
       "run_at": "document_idle"
     }
   ],
-  "short_name": "hide article",
+  "short_name": "hide post",
   "icons": {
     "16": "icons/icon16x16.png",
     "48": "icons/icon48x48.png",
