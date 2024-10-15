@@ -1,13 +1,22 @@
+> [!NOTE]  
+> At some point, LinkedIn introduced a button for hiding a post, that is located directly on the post itself,
+> making this extension obsolete. Hooray! :tada:
+> ![After](docs/img/after.png)
+
+---
+
 # ![Linkedin hide post button logo](icons/icon48x48.png) LinkedIn hide post button
 
-Adds a button for easy hiding of posts on LinkedIn's homepage.
-Saves an extra click and mouse move to hide an post you're
-not interested in from your feed.
+Adds a button for easier hiding of posts on your LinkedIn Feed.
+
+Saves an extra click on the `...` button and a mouse move to the `Hide` menu option (whose position in the menu is not always the same)
+to hide a post in your feed.
+
+![Before](docs/img/before.png)
 
 ## Supported browsers
-![Firefox](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Firefox_Logo%2C_2017.svg/64px-Firefox_Logo%2C_2017.svg.png)
-![Google Chrome](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/64px-Google_Chrome_icon_%28September_2014%29.svg.png)
-
+![Firefox](docs/img/firefox-browser-icon.png)
+![Google Chrome](docs/img/google-chrome-icon.png)
 ## Installation
 ### Latest release
 * Firefox
@@ -53,6 +62,6 @@ This will create a **dist** directory which contains all the plugin content
 with minified code, along with a .zip archive required for web stores.
 
 ## Contributors
-* [Anja Stanojevic](https://www.linkedin.com/in/anja-stanojevic-459a5631/)
-* [Tomo Radenovic](https://www.linkedin.com/in/tomo-radenovic-a59a4971/)
-* [Danilo Radenovic](https://www.daniloradenovic.com)
+* [Anja Radenovic](https://www.linkedin.com/in/anjaradenovic)
+* [Tomo Radenovic](https://www.linkedin.com/in/tomoradenovic)
+* [Danilo Radenovic](https://www.linkedin.com/in/daniloradenovic)
