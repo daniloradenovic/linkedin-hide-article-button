@@ -1,13 +1,14 @@
 > [!NOTE]  
 > At some point, LinkedIn introduced a button for hiding a post, that is located directly on the post itself,
-> making this extension obsolete. Hooray! :tada:
+> making this browser extension obsolete. Hooray! :tada:
+> 
 > ![After](docs/img/after.png)
 
 ---
 
 # ![Linkedin hide post button logo](icons/icon48x48.png) LinkedIn hide post button
 
-Adds a button for easier hiding of posts on your LinkedIn Feed.
+A browser extension that adds a button for easier hiding of posts on your LinkedIn Feed.
 
 Saves an extra click on the `...` button and a mouse move to the `Hide` menu option (whose position in the menu is not always the same)
 to hide a post in your feed.
